@@ -4,7 +4,6 @@ import (
 	"webserver/handlers"
 	. "launchpad.net/gocheck"
 	"testing"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 )
@@ -21,7 +20,7 @@ func (s *WebServerSuite) TestShouldRequestFoo(c *C) {
 	c.Check(err, IsNil)
 	handlers.FooHandler(recorder, request)
 
-	data, err := ioutil.ReadAll(recorder.Body)
+	data := recorder.Body.String()
 	c.Assert(string(data), Equals, "This is Foo handler!")
 }
 
@@ -32,6 +31,6 @@ func (s *WebServerSuite) TestShouldRequestBar(c *C) {
 	c.Check(err, IsNil)
 	handlers.BarHandler(recorder, request)
 
-	data, err := ioutil.ReadAll(recorder.Body)
+	data := recorder.Body.String()
 	c.Assert(string(data), Equals, "This is Bar handler!!")
 }
